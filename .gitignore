@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Streamlit
+.streamlit/
+.streamlit_credentials/
+
+# Data
+*.csv
+data/
+cache/
+
+# Credentials
+.env
+secrets/
+credentials.json
+
+# Logs
+*.log
+logs/
+
+# Temporary
+temp/
+tmp/
+*.bak
