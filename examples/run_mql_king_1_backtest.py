@@ -220,11 +220,9 @@ def print_strategy_info():
     """Print strategy information"""
     
     info = """
-╔══════════════════════════════════════════════════════════════════╗
-║              🧭 MQL KING 1 - STRATEGY OVERVIEW                  ║
-╚══════════════════════════════════════════════════════════════════╝
+MQL KING 1 - STRATEGY OVERVIEW
 
-📌 STRATEGY TYPE:
+STRATEGY TYPE:
    - Smart Money Concepts (SMC) based
    - Price Action + Mathematical Models
    - HFT on 1-Minute Timeframe (XAUUSD)

@@ -1,16 +1,13 @@
-"""
-PROPFIRM SYSTEM - EXECUTABLE EXAMPLE
-═════════════════════════════════════════════════════════════════════════
+"""PropFirm System Demo
 
-This script demonstrates the complete system in action with sample data
-Run this to see how the 3-layer system works end-to-end
+Complete system demonstration with sample data.
+Shows how the 3-layer prop firm system works end-to-end.
 """
 
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 
-# Import the complete system
 from propfirm.unified_backtest import UnifiedPropFirmBacktest
 from propfirm.account_rules import (
     create_apex_preset,
@@ -31,13 +28,9 @@ from propfirm.payout_rules import (
 
 
 def generate_sample_data(num_candles=500, symbol='ES'):
-    """
-    Generate synthetic trading data with entry/exit signals
+    """Generate synthetic trading data with entry/exit signals."""
     
-    For real use: Replace with your actual OHLC data and strategy signals
-    """
-    
-    print(f"📊 Generating {num_candles} candles of sample data for {symbol}...")
+    print(f"Generating {num_candles} candles for {symbol}...")
     
     # Generate realistic price movement
     np.random.seed(42)

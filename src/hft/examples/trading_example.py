@@ -1,13 +1,6 @@
-"""
-HFT Trading System - Complete Example & Tutorial
-Demonstrates how to use the HFT Scalping EA and Python backtesting framework
+"""HFT Trading System Examples
 
-This module provides:
-1. Setup instructions for MT5 HFT EA
-2. Complete backtesting example
-3. Parameter optimization guide
-4. Performance analysis
-5. Risk management configuration
+Demonstrates HFT Scalping strategy backtesting and performance analysis.
 """
 
 import pandas as pd
@@ -16,7 +9,6 @@ from typing import Dict, List
 import json
 from datetime import datetime
 
-# Import HFT components
 from hft.strategies.hft_scalping_strategy import (
     HFTScalpingStrategy,
     HFTRiskManager,
@@ -30,74 +22,38 @@ from hft.utils.hft_backtest_engine import (
 
 
 class HFTTradingExample:
-    """Complete HFT trading system example"""
+    """HFT trading system example"""
     
     @staticmethod
     def mt5_setup_guide() -> str:
-        """
-        MT5 HFT EA Setup Instructions
-        """
+        """MT5 HFT EA setup instructions"""
         guide = """
-╔════════════════════════════════════════════════════════════════════╗
-║           HFT SCALPING EA - MT5 SETUP GUIDE                        ║
-╚════════════════════════════════════════════════════════════════════╝
+MT5 HFT EA SETUP
 
-FILE: HFTScalpingEA.mq5 (located in mt5_ea/ folder)
+1. Install
+   - Copy HFTScalpingEA.mq5 to MQL5/Experts folder
+   - Restart MT5 or press F5
 
-STEP 1: INSTALL IN METATRADER 5
-────────────────────────────────
-1. Open MetaTrader 5 terminal
-2. Go to: File → Open Data Folder
-3. Navigate to: MQL5 → Experts
-4. Copy HFTScalpingEA.mq5 to this folder
-5. Restart MetaTrader 5 or press F5 to refresh
+2. Compile
+   - Open MetaEditor (Ctrl+Shift+E)
+   - Open HFTScalpingEA.mq5
+   - Compile (F5)
 
-STEP 2: COMPILE THE EA
-──────────────────────
-1. In MT5, go to Tools → MetaEditor (or Ctrl+Shift+E)
-2. Open HFTScalpingEA.mq5
-3. Press Compile (F5) or Tools → Compile
-4. Check for any errors in the Errors tab
-5. Close if compilation successful
+3. Configure
+   - Set risk_percent_per_trade = 0.5
+   - Set max_daily_loss_percent = 5.0
+   - Adjust MA periods: fast=5, slow=20
+   - RSI: period=14, oversold=30
 
-STEP 3: CONFIGURE PARAMETERS
-──────────────────────────────
+4. Attach to Chart
+   - Open chart for desired instrument
+   - Drag EA to chart
+   - Enable AutoTrading
 
-Strategy Type Selection:
-  - strategy_type = SCALPING (default, recommended)
-    * Best for rapid short-term trades
-    * Entry/Exit: 5-15 pips profit per trade
-    * High win rate, smaller profits per trade
-    
-  - strategy_type = MARKET_MAKING
-    * Two-sided order placement
-    * Captures spread widening
-    * Requires good execution
-    
-  - strategy_type = TREND_FOLLOWING
-    * Follows momentum moves
-    * Larger profits, lower win rate
-    * Better for trending markets
-
-Risk Management Settings:
-  - risk_percent_per_trade = 0.5 (RECOMMENDED for HFT)
-    * Conservative: 0.3-0.5%
-    * Moderate: 0.5-1.0%
-    * Aggressive: 1.0-2.0% (NOT RECOMMENDED)
-  
-  - max_consecutive_losses = 5
-    * Stops trading after 5 losing trades
-    * Prevents revenge trading
-  
-  - max_daily_loss_percent = 5.0
-    * Closes all positions if daily P&L < -5%
-    * Critical risk control
-
-Entry Condition Parameters:
-  - ma_fast_period = 5 (Fast MA: 3-7 recommended)
-  - ma_slow_period = 20 (Slow MA: 15-30 recommended)
-  - rsi_period = 14
-  - rsi_oversold = 30
+5. Monitor
+   - Watch Trade Log for entries/exits
+   - Check daily balance updates
+"""
   - rsi_overbought = 70
 
 Stop Loss / Take Profit:
@@ -204,26 +160,12 @@ Remember: Consistency and risk management > Home run trades!
         return guide
     
     @staticmethod
-    def python_backtest_example(
-        data: pd.DataFrame,
-        strategy_type: str = "scalping"
-    ) -> Dict:
-        """
-        Complete Python backtesting example
+    def python_backtest_example(data: pd.DataFrame, strategy_type: str = "scalping") -> Dict:
+        """Run HFT backtesting example."""
         
-        Args:
-            data: OHLC DataFrame
-            strategy_type: Type of HFT strategy
-            
-        Returns:
-            Backtest results dictionary
-        """
-        print("\n" + "="*70)
-        print("HFT PYTHON BACKTESTING EXAMPLE")
-        print("="*70)
+        print("\nHFT Python Backtesting")
+        print("="*60)
         
-        # 1. Initialize Strategy
-        print("\n[1/5] Initializing HFT Strategy...")
         strategy = HFTScalpingStrategy(
             strategy_type=strategy_type,
             ma_fast=5,
@@ -231,29 +173,18 @@ Remember: Consistency and risk management > Home run trades!
             rsi_period=14,
             atr_period=14
         )
-        print(f"  ✓ Strategy: {strategy}")
+        print(f"Strategy: {strategy}")
         
-        # 2. Generate Signals
-        print("\n[2/5] Generating Trading Signals...")
         signals_df = strategy.generate_signals(data)
-        buy_signals = signals_df['BUY'].sum()
-        sell_signals = signals_df['SELL'].sum()
-        print(f"  ✓ Buy signals: {buy_signals}")
-        print(f"  ✓ Sell signals: {sell_signals}")
+        print(f"Signals - Buy: {signals_df['BUY'].sum()}, Sell: {signals_df['SELL'].sum()}")
         
-        # 3. Setup Execution Parameters
-        print("\n[3/5] Configuring Execution Parameters...")
         exec_params = ExecutionParams(
             venue=ExecutionVenue.FOREX_ECN,
             base_spread_pips=1.0,
             slippage_pips=0.5,
             latency_ms=100
         )
-        print(f"  ✓ Venue: {exec_params.venue.value}")
-        print(f"  ✓ Total Execution Cost: {exec_params.get_total_cost_pips()} pips")
         
-        # 4. Run Backtest
-        print("\n[4/5] Running Backtest (with realistic execution)...")
         engine = HFTBacktestEngine(
             initial_balance=10000,
             execution_params=exec_params,
@@ -264,80 +195,34 @@ Remember: Consistency and risk management > Home run trades!
         
         results = engine.backtest(data, signals_df)
         
-        # 5. Analyze Results
-        print("\n[5/5] Analyzing Results...")
-        
-        print("\n" + "-"*70)
-        print("BACKTEST RESULTS")
-        print("-"*70)
-        
-        print(f"\nTrade Statistics:")
-        print(f"  • Total Trades: {results['total_trades']}")
-        print(f"  • Winning Trades: {results['winning_trades']}")
-        print(f"  • Losing Trades: {results['losing_trades']}")
-        print(f"  • Win Rate: {results['win_rate']:.2f}%")
-        
-        print(f"\nProfit & Loss:")
-        print(f"  • Total P&L: ${results['total_pnl']:.2f}")
-        print(f"  • Total Return: {results['total_return_percent']:.2f}%")
-        print(f"  • Final Balance: ${results['final_balance']:.2f}")
-        
-        print(f"\nTrade Quality:")
-        print(f"  • Avg Win: ${results['avg_win']:.2f}")
-        print(f"  • Avg Loss: ${results['avg_loss']:.2f}")
-        print(f"  • Largest Win: ${results['largest_win']:.2f}")
-        print(f"  • Largest Loss: ${results['largest_loss']:.2f}")
-        print(f"  • Profit Factor: {results['profit_factor']:.2f}")
-        
-        print(f"\nRisk Metrics:")
-        print(f"  • Max Drawdown: {results['max_drawdown_percent']:.2f}%")
-        print(f"  • Sharpe Ratio: {results['sharpe_ratio']:.2f}")
-        print(f"  • Sortino Ratio: {results['sortino_ratio']:.2f}")
-        
-        print(f"\nTrade Efficiency:")
-        print(f"  • Avg Trade Duration: {results['avg_trade_duration_bars']:.1f} bars")
-        print(f"  • Consecutive Wins: {results['consecutive_wins']}")
-        print(f"  • Consecutive Losses: {results['consecutive_losses']}")
-        
-        print("\n" + "="*70)
-        
-        # Export trade log
-        trade_log = engine.get_trade_log()
+        print(f"\nResults:")
+        print(f"  Total Trades: {results['total_trades']}")
+        print(f"  Win Rate: {results['win_rate']:.2f}%")
+        print(f"  Total P&L: ${results['total_pnl']:.2f}")
+        print(f"  Return: {results['total_return_percent']:.2f}%")
+        print(f"  Sharpe: {results['sharpe_ratio']:.2f}")
+        print(f"  Max Drawdown: {results['max_drawdown_percent']:.2f}%")
         
         return {
             'results': results,
-            'trade_log': trade_log,
+            'trade_log': engine.get_trade_log(),
             'strategy': strategy,
             'engine': engine
         }
     
     @staticmethod
-    def parameter_optimization_example(
-        data: pd.DataFrame,
-        param_ranges: Dict
-    ) -> pd.DataFrame:
-        """
-        Example of parameter optimization for HFT strategy
+    def parameter_optimization_example(data: pd.DataFrame, param_ranges: Dict) -> pd.DataFrame:
+        """Run HFT parameter optimization."""
         
-        Args:
-            data: OHLC DataFrame
-            param_ranges: Dictionary of parameter ranges to test
-            
-        Returns:
-            DataFrame with optimization results
-        """
-        print("\n" + "="*70)
-        print("HFT PARAMETER OPTIMIZATION")
-        print("="*70)
+        print("\nHFT Parameter Optimization")
+        print("="*60)
         
         results = []
-        total_combinations = 1
+        total = 1
+        for values in param_ranges.values():
+            total *= len(values)
         
-        # Calculate total combinations
-        for key, values in param_ranges.items():
-            total_combinations *= len(values)
-        
-        print(f"\nTesting {total_combinations} parameter combinations...\n")
+        print(f"Testing {total} parameter combinations...")
         
         combo = 0
         for ma_fast in param_ranges.get('ma_fast', [5]):

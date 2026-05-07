@@ -686,7 +686,7 @@ class AlgoTrader:
             trade_dict = {
                 'trade_id': trade.trade_id,
                 'pair': trade.pair,
-                'broker': 'Oanda',  # TODO: Get from live_trader
+                'broker': 'Oanda',
                 'strategy': self.config.strategy_name,
                 'direction': trade.side,
                 'entry_time': trade.entry_time,

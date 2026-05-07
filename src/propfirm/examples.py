@@ -1,12 +1,7 @@
-"""
-PropFirm Backtest System - Example Usage & Integration Guide
-═════════════════════════════════════════════════════════════════════════
+"""PropFirm Backtest Examples
 
-This module demonstrates:
-1. How to use presets (Apex, Lucid, Topstep)
-2. How to customize rules
-3. How to run backtests with the 3-layer system
-4. How to access reports and analytics
+Demonstrates how to run backtests with different prop firm presets
+and customize rules for various trading scenarios.
 """
 
 import pandas as pd
@@ -35,28 +30,11 @@ from propfirm.payout_rules import (
 from propfirm.unified_backtest import UnifiedPropFirmBacktest
 
 
-# ════════════════════════════════════════════════════════════════════════════
-# EXAMPLE 1: Run Backtest with Lucid Preset
-# ════════════════════════════════════════════════════════════════════════════
-
 def example_lucid_backtest():
-    """
-    Run a backtest using Lucid's preset rules
+    """Run backtest with Lucid preset ($50K, 6% target, 5% drawdown)."""
     
-    Lucid Rules:
-    ✅ $50K account
-    ✅ 1-step evaluation
-    ✅ 6% profit target ($3000)
-    ✅ 5% max drawdown ($2500)
-    ✅ End-of-day trailing drawdown
-    ✅ 5 minimum trading days
-    ✅ 50% consistency rule (best day ≤ 50% profit)
-    """
-    
-    # Load or generate sample data
     data = _generate_sample_data()
     
-    # Create backtest with Lucid preset
     backtest = UnifiedPropFirmBacktest(
         account_config=create_lucid_preset(account_size=50000),
         trading_rules=create_lucid_trading_rules(),
@@ -64,7 +42,6 @@ def example_lucid_backtest():
         payout_rules=create_lucid_payout_rules(),
     )
     
-    # Run backtest
     result = backtest.run(
         data=data,
         symbol='ES',
@@ -74,29 +51,22 @@ def example_lucid_backtest():
         tp_pips=100,
     )
     
-    # Get results
-    print("\\n" + "="*80)
-    print("LUCID BACKTEST RESULT")
-    print("="*80)
-    print(f"Status: {'✅ PASSED' if result['passed'] else '❌ FAILED'}")
+    print("\nLUCID BACKTEST")
+    print("="*60)
+    print(f"Status: {'PASSED' if result['passed'] else 'FAILED'}")
     print(f"Reason: {result['reason']}")
     
     if result['summary']:
-        print(f"\\nBalance: ${result['summary']['balance']['current']:.2f}")
-        print(f"P&L: ${result['summary']['balance']['cumulative_pnl']:.2f} ({result['summary']['balance']['cumulative_pnl_pct']})")
-        print(f"Drawdown: {result['summary']['drawdown']['current']} (Max: {result['summary']['drawdown']['max']})")
-        print(f"Trades: {result['summary']['trading']['total_trades']} (Win Rate: {result['summary']['trading']['win_rate']})")
+        print(f"Balance: ${result['summary']['balance']['current']:.2f}")
+        print(f"P&L: ${result['summary']['balance']['cumulative_pnl']:.2f}")
+        print(f"Drawdown: {result['summary']['drawdown']['current']}")
+        print(f"Trades: {result['summary']['trading']['total_trades']}")
     
     return result
 
 
-# ════════════════════════════════════════════════════════════════════════════
-# EXAMPLE 2: Run Backtest with Apex Preset
-# ════════════════════════════════════════════════════════════════════════════
-
 def example_apex_backtest():
-    """
-    Run a backtest using Apex's strict rules
+    """Run backtest with Apex preset.
     
     Apex Rules:
     ✅ $50K account

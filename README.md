@@ -8,95 +8,62 @@ A production-ready trading framework combining HFT strategies, prop firm challen
 ## Quick Start
 
 ```bash
-# Install dependencies
 pip install -r requirements.txt
+python app.py
+```
 
-# Run the Streamlit dashboard
+## Key Features
+
+- **Multi-Pair Backtesting**: Test across major forex pairs
+- **HFT Strategies**: 10+ high-frequency trading strategies
+- **Prop Firm Simulator**: Account lifecycle and challenge validation
+- **Live Trading**: Real-time execution with advanced risk management
+- **Streamlit Dashboard**: Interactive UI for strategy development
+- **Risk Management**: Per-trade and account-level position sizing
+
+## Project Structure
+
+See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for directory details.
+
+- **Source Code**: [`src/`](src/)
+- **Examples**: [`examples/`](examples/)
+- **Tests**: [`tests/`](tests/)
+- **Documentation**: [`docs/`](docs/)
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+See [docs/INSTALLATION.md](docs/INSTALLATION.md) for detailed setup.
+
+## Usage
+
+```bash
+# Run dashboard
 python app.py
 
 # Run examples
 python examples/run_demo.py
-python examples/run_mql_king_1_backtest.py
 
 # Run tests
 python tests/test_strategies.py
 ```
 
-## Key Features
-
-- **Multi-Pair Backtesting**: Test across major forex pairs (EURUSD, GBPUSD, XAUUSD, etc.)
-- **HFT Strategies**: 10+ high-frequency trading strategies with multiple timeframes
-- **Prop Firm Simulator**: Complete account lifecycle management and challenge validation
-- **Live Trading**: Real-time trade execution with advanced risk management
-- **Risk Management**: Per-trade and account-level position sizing
-- **Telegram Notifications**: Real-time alerts for trade events
-- **Streamlit Dashboard**: Interactive UI for strategy building and backtesting
-- **ML Analysis**: Deep-dive analysis with actionable insights
-
-## Project Structure
-
-See [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) for a detailed breakdown of the directory organization.
-
-Quick navigation:
-- **Source Code**: [`src/`](src/) - Core modules (HFT, Prop Firm, Pages)
-- **Examples**: [`examples/`](examples/) - Demonstration scripts
-- **Tests**: [`tests/`](tests/) - Test files
-- **Scripts**: [`scripts/`](scripts/) - Utility automation
-- **Documentation**: [`docs/`](docs/) - Comprehensive guides
-
-## Installation
-
-1. Clone the repository
-2. Install dependencies: `pip install -r requirements.txt`
-3. See [`docs/INSTALLATION.md`](docs/INSTALLATION.md) for detailed setup
-
 ## Documentation
 
-- **Getting Started**: [`docs/GETTING_STARTED.md`](docs/GETTING_STARTED.md)
-- **Trading Guide**: [`docs/TRADING_GUIDE.md`](docs/TRADING_GUIDE.md)
-- **System Overview**: [`docs/SYSTEM_OVERVIEW.md`](docs/SYSTEM_OVERVIEW.md)
-- **All Documentation**: [`docs/`](docs/) folder
-
-## Usage
-
-### Run the Dashboard
-```bash
-python app.py
-```
-Access at http://localhost:8501
-
-### Run Examples
-```bash
-python examples/run_demo.py
-python examples/run_mql_king_1_backtest.py
-```
-
-### Run Tests
-```bash
-python tests/test_strategies.py
-```
+- [Getting Started](docs/GETTING_STARTED.md)
+- [Trading Guide](docs/TRADING_GUIDE.md)
+- [System Overview](docs/SYSTEM_OVERVIEW.md)
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
-MIT License - see [LICENSE](LICENSE)
-
-**Key Features:**
-- Market structure detection (HH/HL/LH/LL)
-- Order block identification
-- Fair value gap detection
-- Displacement confirmation
-- Session filters (London/NY trading)
-- Advanced risk management
-
-#### Prop Firm System
-- **Account Simulation**: Real-time account lifecycle management
-- **Compliance Engine**: Complete rule validation
-- **Risk Management**: Drawdown tracking & position sizing
-- **Performance Metrics**: Win rate, consistency, Sharpe ratio, etc.
+MIT License
 - **Pre-configured Presets**: Apex, Lucid, Topstep
 
 #### Forex Trading System
@@ -395,3 +362,7 @@ Licensed under the MIT License - see LICENSE file for details.
 **Last Updated**: April 2026  
 **Version**: 2.0  
 **Status**: ✅ Production Ready
+=======
+# Backtesting-Trading-Strategies
+A complete trading ecosystem that combines strategy development, backtesting, live trading, and prop firm challenge simulation in one integrated platform.
+>>>>>>> 5ea313ca96958705250bf4ce27c5fa6f9fd22f6c

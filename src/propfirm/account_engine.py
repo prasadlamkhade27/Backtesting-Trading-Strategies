@@ -1,13 +1,7 @@
-"""
-Account Engine - Real-time Account Lifecycle Tracking
-═════════════════════════════════════════════════════════════════════════
-Core engine that tracks:
-- Current balance, peak balance, drawdown
-- Multiple drawdown types (fixed, intraday trailing, EOD trailing)
-- Daily/weekly/monthly P&L
-- Trading day count
-- Phase transitions
-- Account status and failure reasons
+"""Account Engine - Real-time Account Lifecycle Tracking
+
+Tracks current balance, peak balance, drawdown, daily/weekly/monthly P&L,
+trading day count, phase transitions, and account status.
 """
 
 from dataclasses import dataclass, field
@@ -18,22 +12,17 @@ from enum import Enum
 from propfirm.account_rules import AccountConfig, PhaseRules, DrawdownType, TrailMode
 
 
-# ════════════════════════════════════════════════════════════════════════════
 # ENUMS
-# ════════════════════════════════════════════════════════════════════════════
 
 class AccountStatus(Enum):
     """Current account status"""
-    ACTIVE = "active"                  # Trading, no violations
-    FAILED = "failed"                  # Violated rules, account closed
-    PASSED = "passed"                  # Hit profit target
-    PENDING_PHASE_2 = "pending_phase_2"  # Completed phase 1, waiting for phase 2
-    SUSPENDED = "suspended"            # Temporarily halted
+    ACTIVE = "active"
+    FAILED = "failed"
+    PASSED = "passed"
+    PENDING_PHASE_2 = "pending_phase_2"
+    SUSPENDED = "suspended"
 
-
-# ════════════════════════════════════════════════════════════════════════════
-# DAILY TRACKING
-# ════════════════════════════════════════════════════════════════════════════
+# Daily Tracking
 
 @dataclass
 class DailyRecord:
@@ -48,10 +37,7 @@ class DailyRecord:
     peak_balance: float = 0.0          # Highest balance during day
     intraday_drawdown: float = 0.0     # Lowest point in day
 
-
-# ════════════════════════════════════════════════════════════════════════════
-# ACCOUNT ENGINE - Main Class
-# ════════════════════════════════════════════════════════════════════════════
+# Account Engine - Main Class
 
 @dataclass
 class AccountEngine:
@@ -72,9 +58,7 @@ class AccountEngine:
     account_config: AccountConfig
     phase_rules: PhaseRules = field(default_factory=PhaseRules)
     
-    # ────────────────────────────────────────────────────────────────────────
-    # REAL-TIME BALANCES
-    # ────────────────────────────────────────────────────────────────────────
+    # Real-time Balances
     current_balance: float = 0.0       # Current account balance
     peak_balance: float = 0.0          # Highest balance ever reached
     peak_balance_date: Optional[date] = None  # When peak was set

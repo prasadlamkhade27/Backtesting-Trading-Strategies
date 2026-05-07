@@ -1,16 +1,4 @@
-"""
-Pairs Trading Strategy - Example Usage
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Example: Trading EUR/USD vs GBP/USD using mean reversion
-
-This demonstrates:
-1. Loading data for two pairs
-2. Pre-trade analysis (correlation, cointegration, hedge ratio)
-3. Generating trading signals
-4. Visualizing the spread and Z-scores
-5. Running backtest with proper accounting for hedged trades
-"""
+"""Pairs Trading Strategy - Mean Reversion"""
 
 import sys
 import pandas as pd

@@ -1,27 +1,7 @@
-"""
-Pairs Trading Strategy - Mean Reversion Based
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Core Concept: Trade the SPREAD, not direction
+"""Pairs Trading Strategy - Mean Reversion
 
-How it works:
-1. Two related forex pairs diverge temporarily
-2. Strategy calculates spread between them (with hedge ratio for balance)
-3. Uses Z-score to identify extremes (mean reversion opportunity)
-4. Trades when spread deviates significantly (Z > ±2)
-5. Exits when spread normalizes (Z ≈ 0) or hits hard stop (Z > ±3)
-
-Why it works:
-- High win rate (trades reverting conditions, not trends)
-- Reduced directional bias (long one, short the other)
-- Lower correlation risk vs. trading single pairs
-- Profit from relative movement, not absolute direction
-
-Key Features:
-✓ Cointegration analysis (ensures real relationship)
-✓ Hedge ratio (β) normalization
-✓ Rolling windows for dynamic adaptation
-✓ Volatility filter (avoid news)
-✓ Proper risk management (SL at extreme, TP at mean)
+Trades the spread between two correlated pairs using Z-score signals.
+Goes long when spread deviates significantly, exits on mean reversion.
 """
 
 import pandas as pd
@@ -33,16 +13,6 @@ warnings.filterwarnings('ignore')
 
 
 class PairsTradingStrategy:
-    """
-    Pairs Trading Strategy using mean reversion on spread
-    
-    Example:
-        strategy = PairsTradingStrategy(
-            pair1='EURUSD',
-            pair2='GBPUSD',
-            lookback=100,
-            z_entry=2.0,
-            z_exit=0.5,
             z_stop=3.0
         )
         signals_df = strategy.generate_signals(df1, df2)

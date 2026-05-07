@@ -20,10 +20,10 @@ from propfirm.account_rules import create_apex_preset, create_lucid_preset, crea
 from propfirm.trading_rules import TradingRules, RiskManagementRules
 from propfirm.payout_rules import PayoutRules
 
-# ====================== PAGE CONFIG ======================
+# Page Configuration
 st.set_page_config(layout="wide", page_title="Advanced Backtester", initial_sidebar_state="expanded")
 
-# ====================== CUSTOM CSS STYLING ======================
+# Custom CSS Styling
 st.markdown("""
 <style>
     * {
@@ -318,7 +318,7 @@ st.title("🚀 Advanced Backtesting Engine with PropFirm Challenge")
 
 st.markdown("")
 
-# ====================== STRATEGY BUILDER QUICK ACCESS ======================
+# Strategy Builder Quick Access
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.page_link("pages/01_Strategy_Builder.py", label="✨ Strategy Builder", icon="🚀")

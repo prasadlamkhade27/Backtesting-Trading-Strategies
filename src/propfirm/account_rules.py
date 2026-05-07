@@ -1,14 +1,8 @@
-"""
-PropFirm Account & Funding Rule Engine
-═════════════════════════════════════════════════════════════════════════
-Comprehensive data models for account lifecycle, phases, and evaluation rules.
+"""PropFirm Account & Funding Rule Engine
 
-Supports:
-- One-step and two-step evaluations
-- Fixed and trailing drawdown (intraday/EOD)
-- Profit targets (absolute/percentage)
-- Time limits and minimum trading days
-- Phase transitions with rule breaches
+Comprehensive data models for account lifecycle, phases, and evaluation rules.
+Supports one-step and two-step evaluations, fixed and trailing drawdowns,
+profit targets, time limits, and phase transitions.
 """
 
 from dataclasses import dataclass, field
@@ -16,37 +10,33 @@ from typing import List, Optional, Dict, Literal
 from enum import Enum
 
 
-# ════════════════════════════════════════════════════════════════════════════
-# ENUMS - Rule Types and Modes
-# ════════════════════════════════════════════════════════════════════════════
+# Rule Types and Modes
 
 class EvaluationType(Enum):
     """Type of evaluation process"""
-    ONE_STEP = "one_step"  # Single phase (Apex, Lucid)
-    TWO_STEP = "two_step"  # Two phases (Topstep)
+    ONE_STEP = "one_step"
+    TWO_STEP = "two_step"
 
 
 class DrawdownType(Enum):
     """Type of drawdown calculation"""
-    FIXED = "fixed"                    # Max loss from initial
-    TRAILING = "trailing"              # Trailing from peak
+    FIXED = "fixed"
+    TRAILING = "trailing"
 
 
 class TrailMode(Enum):
     """When trailing drawdown threshold updates"""
-    INTRADAY = "intraday"              # Real-time (strict, Apex-style)
-    END_OF_DAY = "end_of_day"          # After market close (realistic)
+    INTRADAY = "intraday"
+    END_OF_DAY = "end_of_day"
 
 
 class ProfitTargetType(Enum):
     """Type of profit target"""
-    ABSOLUTE = "absolute"              # Fixed dollar amount
-    PERCENTAGE = "percentage"          # Percentage of account
+    ABSOLUTE = "absolute"
+    PERCENTAGE = "percentage"
 
 
-# ════════════════════════════════════════════════════════════════════════════
-# PHASE RULES - Individual evaluation phase configuration
-# ════════════════════════════════════════════════════════════════════════════
+# Phase Rules - Individual evaluation phase configuration
 
 @dataclass
 class PhaseRules:
